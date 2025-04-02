@@ -1,4 +1,4 @@
-import * as Sentry from '@sentry/react-native';
+// import * as Sentry from '@sentry/react-native';
 
 import Constants from 'expo-constants';
 import App from './src/app';
@@ -12,11 +12,12 @@ import './reanimatedConfig';
 const isStorybookEnabled = Constants.expoConfig?.extra?.eas?.storybookEnabled;
 
 if (!__DEV__) {
-  Sentry.init({
-    dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
-    tracesSampleRate: 1.0,
-    attachScreenshot: true,
-  });
+  // TODO Sentry broken with combination of React Native < 0.77 and Sentry < 6.10
+  // Sentry.init({
+  //   dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
+  //   tracesSampleRate: 1.0,
+  //   attachScreenshot: true,
+  // });
 }
 
 if (__DEV__) {
@@ -30,9 +31,10 @@ export default (() => {
     return require('./.storybook').default;
   }
 
-  if (!__DEV__) {
-    return Sentry.wrap(App);
-  }
+  // TODO Sentry broken with combination of React Native < 0.77 and Sentry < 6.10
+  // if (!__DEV__) {
+  //   return Sentry.wrap(App);
+  // }
 
   console.log('Loading Development App');
   return App;

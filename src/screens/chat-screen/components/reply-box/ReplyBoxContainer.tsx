@@ -402,7 +402,7 @@ const BottomSheetContent = () => {
 
         {typingText && <TypingIndicator typingText={typingText} />}
 
-        {isVoiceRecorderOpen ? <AudioRecorder onRecordingComplete={onRecordingComplete} /> : null}
+        {(isVoiceRecorderOpen && process.env.EXPO_PUBLIC_ENABLE_VOICE_MESSAGES === 'true') ? <AudioRecorder onRecordingComplete={onRecordingComplete} /> : null}
         {!isVoiceRecorderOpen ? (
           <Animated.View style={tailwind.style('flex flex-row px-1 items-end z-20 relative')}>
             {attachmentsLength === 0 && shouldShowFileUpload && (

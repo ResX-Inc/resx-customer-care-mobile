@@ -3,7 +3,7 @@ import { BottomTabBarProps, createBottomTabNavigator } from '@react-navigation/b
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { authActions } from '@/store/auth/authActions';
-import * as Sentry from '@sentry/react-native';
+// import * as Sentry from '@sentry/react-native';
 
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import {
@@ -109,14 +109,15 @@ const Tabs = () => {
   }, []);
 
   const initSentry = useCallback(async () => {
-    Sentry.setUser({
-      id: user?.id,
-      email: user?.email,
-      account_id: user?.account_id,
-      name: user?.name,
-      role: user?.role,
-      installation_url: installationUrl,
-    });
+    // TODO Sentry broken with combination of React Native < 0.77 and Sentry < 6.10
+    // Sentry.setUser({
+    //   id: user?.id,
+    //   email: user?.email,
+    //   account_id: user?.account_id,
+    //   name: user?.name,
+    //   role: user?.role,
+    //   installation_url: installationUrl,
+    // });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

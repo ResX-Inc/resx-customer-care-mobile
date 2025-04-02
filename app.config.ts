@@ -81,14 +81,15 @@ export default ({ config }: ConfigContext): ExpoConfig => {
           iosPermissions: ['Camera', 'PhotoLibrary', 'MediaLibrary'],
         },
       ],
-      [
-        '@sentry/react-native/expo',
-        {
-          url: 'https://sentry.io/',
-          project: process.env.EXPO_PUBLIC_SENTRY_PROJECT_NAME,
-          organization: process.env.EXPO_PUBLIC_SENTRY_ORG_NAME,
-        },
-      ],
+      // TODO Sentry broken with combination of React Native < 0.77 and Sentry < 6.10
+      // [
+      //   '@sentry/react-native/expo',
+      //   {
+      //     url: 'https://sentry.io/',
+      //     project: process.env.EXPO_PUBLIC_SENTRY_PROJECT_NAME,
+      //     organization: process.env.EXPO_PUBLIC_SENTRY_ORG_NAME,
+      //   },
+      // ],
       '@react-native-firebase/app',
       '@react-native-firebase/messaging',
       [
@@ -107,15 +108,16 @@ export default ({ config }: ConfigContext): ExpoConfig => {
           },
         },
       ],
-      [
-        '@config-plugins/ffmpeg-kit-react-native',
-        {
-          package: 'min',
-          ios: {
-            package: 'audio',
-          },
-        },
-      ],
+      // TODO package no longer exists
+      // [
+      //   '@config-plugins/ffmpeg-kit-react-native',
+      //   {
+      //     package: 'min',
+      //     ios: {
+      //       package: 'audio',
+      //     },
+      //   },
+      // ],
     ],
     androidNavigationBar: {
       backgroundColor: '#ffffff',

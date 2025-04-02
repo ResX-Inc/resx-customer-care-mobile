@@ -1,6 +1,5 @@
 import RNFS from 'react-native-fs';
-import { FFmpegKit } from 'ffmpeg-kit-react-native';
-import * as Sentry from '@sentry/react-native';
+// import * as Sentry from '@sentry/react-native';
 
 export const convertOggToMp3 = async (oggUrl: string): Promise<string> => {
   const tempOggPath = `${RNFS.CachesDirectoryPath}/temp.ogg`;
@@ -26,9 +25,10 @@ export const convertOggToMp3 = async (oggUrl: string): Promise<string> => {
     }
 
     // Convert OGG to mp3 using ffmpeg
-    await FFmpegKit.execute(
-      `-i "${tempOggPath}" -vn -y -ar 44100 -ac 2 -c:a libmp3lame -b:a 192k "${outputPath}"`,
-    );
+    // TODO this library no longer exists
+    // await FFmpegKit.execute(
+    //   `-i "${tempOggPath}" -vn -y -ar 44100 -ac 2 -c:a libmp3lame -b:a 192k "${outputPath}"`,
+    // );
 
     // Clean up the temporary OGG file
     if (await RNFS.exists(tempOggPath)) {
@@ -43,14 +43,16 @@ export const convertOggToMp3 = async (oggUrl: string): Promise<string> => {
 
     return `file://${outputPath}`;
   } catch (error) {
-    Sentry.captureException(error);
+    // TODO Sentry broken with combination of React Native < 0.77 and Sentry < 6.10
+    // Sentry.captureException(error);
     // Clean up any temporary files in case of error
     try {
       if (await RNFS.exists(tempOggPath)) {
         await RNFS.unlink(tempOggPath);
       }
     } catch (cleanupError) {
-      Sentry.captureException(cleanupError);
+      // TODO Sentry broken with combination of React Native < 0.77 and Sentry < 6.10
+      // Sentry.captureException(cleanupError);
       // console.error('Error during cleanup:', cleanupError);
     }
     return oggUrl;
@@ -63,9 +65,10 @@ export const convertAacToMp3 = async (inputPath: string): Promise<string> => {
     const outputPath = `${RNFS.CachesDirectoryPath}/${fileName}`;
 
     // Convert to MP3 using FFmpeg with optimal settings
-    await FFmpegKit.execute(
-      `-i "${inputPath}" -vn -y -ar 44100 -ac 2 -c:a libmp3lame -b:a 192k "${outputPath}"`,
-    );
+    // TODO this library no longer exists
+    // await FFmpegKit.execute(
+    //   `-i "${inputPath}" -vn -y -ar 44100 -ac 2 -c:a libmp3lame -b:a 192k "${outputPath}"`,
+    // );
 
     // Verify output file exists
     const outputExists = await RNFS.exists(outputPath);
@@ -75,7 +78,8 @@ export const convertAacToMp3 = async (inputPath: string): Promise<string> => {
 
     return `file://${outputPath}`;
   } catch (error) {
-    Sentry.captureException(error);
+    // TODO Sentry broken with combination of React Native < 0.77 and Sentry < 6.10
+    // Sentry.captureException(error);
     throw error;
   }
 };

@@ -3,7 +3,7 @@ import { Alert, Dimensions, PermissionsAndroid, Platform, Pressable } from 'reac
 import AudioRecorderPlayer, { RecordBackType } from 'react-native-audio-recorder-player';
 import Animated, { SlideInDown, SlideOutDown } from 'react-native-reanimated';
 import { isUndefined } from 'lodash';
-import * as Sentry from '@sentry/react-native';
+// import * as Sentry from '@sentry/react-native';
 import RNFetchBlob from 'rn-fetch-blob';
 
 import { TEXT_INPUT_CONTAINER_HEIGHT } from '@/constants';
@@ -156,7 +156,8 @@ export const AudioRecorder = ({
           setIsVoiceRecorderOpen(false);
           onRecordingComplete(audioFile as unknown as File);
         } catch (error) {
-          Sentry.captureException(error);
+          // TODO Sentry broken with combination of React Native < 0.77 and Sentry < 6.10
+          // Sentry.captureException(error);
           Alert.alert(
             'Error preparing audio file',
             error instanceof Error ? error.message : String(error),

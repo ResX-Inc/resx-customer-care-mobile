@@ -3,7 +3,7 @@ import { Platform, Pressable, View } from 'react-native';
 import { PlayBackType } from 'react-native-audio-recorder-player';
 import Animated, { FadeIn, FadeOut, useSharedValue } from 'react-native-reanimated';
 import Svg, { Path, Rect } from 'react-native-svg';
-import * as Sentry from '@sentry/react-native';
+// import * as Sentry from '@sentry/react-native';
 
 import {
   selectCurrentPlayingAudioSrc,
@@ -86,7 +86,8 @@ export const AudioBubblePlayer = React.memo((props: AudioPlayerProps) => {
           const convertedSrc = await convertOggToMp3(audioSrc);
           setConvertedAudioSrc(convertedSrc);
         } catch (error) {
-          Sentry.captureException(error);
+          // TODO Sentry broken with combination of React Native < 0.77 and Sentry < 6.10
+          // Sentry.captureException(error);
         } finally {
           setIsSoundLoading(false);
         }

@@ -269,7 +269,7 @@ export const MessageComponent = (props: MessageComponentProps) => {
       });
     }
 
-    if (hasAttachments || hasText) {
+    if ((hasAttachments || hasText) && process.env.EXPO_PUBLIC_ENABLE_MESSAGE_DELETE === 'true') {
       menuOptions.push({
         title: i18n.t('CONVERSATION.LONG_PRESS_ACTIONS.DELETE_MESSAGE'),
         icon: <Trash />,

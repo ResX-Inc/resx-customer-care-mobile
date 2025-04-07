@@ -19,9 +19,12 @@ interface SettingsState {
   version: string;
   pushToken: string;
 }
+
+const baseUrl: string = process.env.EXPO_PUBLIC_CHATWOOT_BASE_URL ?? 'https://app.chatwoot.com';
+
 const initialState: SettingsState = {
-  baseUrl: 'app.chatwoot.com',
-  installationUrl: 'https://app.chatwoot.com/',
+  baseUrl: baseUrl.replace('https://', ''),
+  installationUrl: baseUrl,
   uiFlags: {
     isSettingUrl: false,
     isUpdating: false,
@@ -37,7 +40,7 @@ const initialState: SettingsState = {
     selected_push_flags: [],
     user_id: 0,
   },
-  webSocketUrl: 'wss://app.chatwoot.com/cable',
+  webSocketUrl: `wss://${baseUrl.replace('https://', '')}/cable`,
   theme: 'system',
   version: '',
   pushToken: '',

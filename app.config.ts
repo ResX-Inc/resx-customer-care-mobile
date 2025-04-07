@@ -1,4 +1,5 @@
 import { ExpoConfig, ConfigContext } from 'expo/config';
+import 'dotenv/config';
 
 export default ({ config }: ConfigContext): ExpoConfig => {
   return {
@@ -16,6 +17,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       enableFullScreenImage_legacy: true,
     },
     ios: {
+      buildNumber: '2',
       supportsTablet: true,
       bundleIdentifier: 'com.resx.cc',
       infoPlist: {
@@ -29,7 +31,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
         UIBackgroundModes: ['fetch', 'remote-notification'],
       },
       // Please use the relative path to the google-services.json file
-      googleServicesFile: process.env.EXPO_PUBLIC_IOS_GOOGLE_SERVICES_FILE,
+      googleServicesFile: process.env.IOS_GOOGLE_SERVICES_FILE ?? './GoogleService-Info.plist',
       entitlements: {
         'aps-environment': 'production',
       },
@@ -49,7 +51,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
         'android.permission.READ_MEDIA_IMAGES',
       ],
       // Please use the relative path to the google-services.json file
-      googleServicesFile: process.env.EXPO_PUBLIC_ANDROID_GOOGLE_SERVICES_FILE,
+      googleServicesFile: process.env.ANDROID_GOOGLE_SERVICES_FILE ?? './google-services.json',
       intentFilters: [
         {
           action: 'VIEW',
@@ -68,11 +70,11 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     },
     extra: {
       eas: {
-        projectId: process.env.EXPO_PUBLIC_PROJECT_ID,
+        projectId: process.env.PROJECT_ID,
         storybookEnabled: process.env.EXPO_STORYBOOK_ENABLED,
       },
     },
-    owner: 'chatwoot',
+    owner: 'resx-organization',
     plugins: [
       'expo-font',
       [

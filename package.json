@@ -1,5 +1,5 @@
 {
-  "name": "@chatwoot/mobile-app",
+  "name": "resx-customer-care",
   "version": "4.0.16",
   "main": "expo/AppEntry.js",
   "scripts": {
@@ -18,11 +18,13 @@
     "build:android:local": "dotenv -c -- eas build -p android --profile production --local",
     "build:android": "eas build -p android --profile production",
     "build:ios:local": "dotenv -c -- eas build -p ios --profile production --local",
-    "build:ios": "eas build -p ios --profile production",
+    "build:ios:staging": "eas build -p ios --profile preview",
+    "build:ios": "eas build -p ios --profile preview",
     "build:all:local": "dotenv -c -- eas build -p ios --profile production --local && dotenv -c -- eas build -p android --profile production --local",
     "build:all": "eas build -p ios --profile production && eas build -p android --profile production",
     "submit:android": "dotenv -c -- eas submit -p android --profile production",
     "submit:ios": "dotenv -e .env -- eas submit --platform ios",
+    "submit:ios:staging": "dotenv -e .env -- eas submit --platform ios --profile preview --latest",
     "submit:all": "dotenv -e .env -- eas submit -p ios --profile production && dotenv -e .env -- eas submit -p android --profile production",
     "storybook-generate": "sb-rn-get-stories",
     "start:storybook": "cross-env EXPO_STORYBOOK_ENABLED='true' expo start",

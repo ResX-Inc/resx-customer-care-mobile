@@ -1,7 +1,31 @@
 import { ExpoConfig, ConfigContext } from 'expo/config';
 import 'dotenv/config';
 
+const constructBaseUrl = () => {
+  if (process.env.NODE_ENV === 'development') {
+    return process.env.EXPO_PUBLIC_CHATWOOT_BASE_URL;
+  }
+  switch (process.env.APP_ENV) {
+    case 'production':
+      return process.env.CHATWOOT_BASE_URL_PRODUCTION;
+    case 'preview':
+      return process.env.CHATWOOT_BASE_URL_STAGING;
+    default:
+      return null;
+  }
+};
+
 export default ({ config }: ConfigContext): ExpoConfig => {
+  if (!process.env.APP_ENV) {
+    throw new Error('APP_ENV is not defined');
+  }
+
+  const baseUrl = constructBaseUrl();
+
+  if (!baseUrl) {
+    throw new Error('CHATWOOT_BASE_URL is not defined');
+  }
+
   return {
     name: 'ResX Customer Care',
     slug: process.env.EXPO_PUBLIC_APP_SLUG || 'chatwoot-mobile',
@@ -29,6 +53,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
         NSAppleMusicUsageDescription:
           'This app does not use Apple Music, but a system API may require this permission.',
         UIBackgroundModes: ['fetch', 'remote-notification'],
+        ITSAppUsesNonExemptEncryption: 'false',
       },
       // Please use the relative path to the google-services.json file
       googleServicesFile: process.env.IOS_GOOGLE_SERVICES_FILE ?? './GoogleService-Info.plist',

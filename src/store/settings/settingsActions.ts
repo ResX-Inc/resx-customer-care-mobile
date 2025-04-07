@@ -49,8 +49,11 @@ export const settingsActions = {
         }
 
         const installationUrl = extractDomain({ url });
-        const INSTALLATION_URL = `${URL_TYPE}${installationUrl}/`;
-        const WEB_SOCKET_URL = `wss://${url}/cable`;
+        const isDevelopment = process.env.NODE_ENV === 'development';
+        // if local development, use URL as is, allowing http
+        const INSTALLATION_URL = isDevelopment ? url : `${URL_TYPE}${installationUrl}/`;
+        const WEB_SOCKET_URL = `${isDevelopment ? (url.startsWith('https') ? 'wss' : 'ws') : 'wss'}://${installationUrl}/cable`;
+
         const isValid = await SettingsService.verifyInstallationUrl(INSTALLATION_URL);
 
         if (!isValid) {

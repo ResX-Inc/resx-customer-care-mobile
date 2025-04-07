@@ -7,9 +7,12 @@ import App from './src/app';
 // Ref: https://github.com/gorhom/react-native-bottom-sheet/issues/1983
 // https://github.com/dohooo/react-native-reanimated-carousel/issues/706
 import './reanimatedConfig';
+import constructBaseUrl from '@/utils/constructBaseUrl';
 // import './wdyr';
 
 const isStorybookEnabled = Constants.expoConfig?.extra?.eas?.storybookEnabled;
+
+process.env.EXPO_PUBLIC_CHATWOOT_BASE_URL = constructBaseUrl();
 
 if (!__DEV__) {
   // TODO Sentry broken with combination of React Native < 0.77 and Sentry < 6.10

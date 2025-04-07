@@ -6,9 +6,27 @@
   "build": {
     "development": {
       "developmentClient": true,
-      "distribution": "internal"
+      "distribution": "internal",
+      "env": {
+        "APP_ENV": "development"
+      }
     },
     "production": {
+      "autoIncrement": true,
+      "env": {
+        "APP_ENV": "production"
+      }
+    },
+    "preview": {
+      "environment": "preview",
+      "ios": {
+        "image": "latest",
+        "resourceClass": "m-medium",
+        "env": {
+          "PLATFORM": "ios",
+          "APP_ENV": "preview"
+        }
+      },
       "autoIncrement": true
     }
   },
@@ -16,6 +34,13 @@
     "production": {
       "android": {
         "track": "internal"
+      }
+    },
+    "preview": {
+      "ios": {
+        "appleId": "",
+        "ascAppId": "",
+        "appleTeamId": ""
       }
     }
   }

@@ -40,7 +40,7 @@ const initialState: SettingsState = {
     selected_push_flags: [],
     user_id: 0,
   },
-  webSocketUrl: `wss://${baseUrl.replace('https://', '')}/cable`,
+  webSocketUrl: `${baseUrl.replace('https', 'wss').replace('http', 'ws')}/cable`,
   theme: 'system',
   version: '',
   pushToken: '',

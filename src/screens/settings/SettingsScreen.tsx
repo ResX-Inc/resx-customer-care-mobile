@@ -252,22 +252,22 @@ const SettingsScreen = () => {
   ];
 
   const supportList: GenericListType[] = [
-    // URUGUAY hidden {
-    //   hasChevron: true,
-    //   title: i18n.t('SETTINGS.READ_DOCS'),
-    //   icon: <SwitchIcon />,
-    //   subtitle: '',
-    //   subtitleType: 'light',
-    //   onPressListItem: openURL,
-    // },
-    // {
-    //   hasChevron: true,
-    //   title: i18n.t('SETTINGS.CHAT_WITH_US'),
-    //   icon: <ChatwootIcon />,
-    //   subtitle: '',
-    //   subtitleType: 'light',
-    //   onPressListItem: () => toggleWidget(true),
-    // },
+    {
+      hasChevron: true,
+      title: i18n.t('SETTINGS.READ_DOCS'),
+      icon: <SwitchIcon />,
+      subtitle: '',
+      subtitleType: 'light',
+      onPressListItem: openURL,
+    },
+    {
+      hasChevron: true,
+      title: i18n.t('SETTINGS.CHAT_WITH_US'),
+      icon: <ChatwootIcon />,
+      subtitle: '',
+      subtitleType: 'light',
+      onPressListItem: () => toggleWidget(true),
+    },
   ];
 
   return (
@@ -304,7 +304,7 @@ const SettingsScreen = () => {
         <Animated.View style={tailwind.style('pt-6')}>
           <SettingsList sectionTitle={i18n.t('SETTINGS.PREFERENCES')} list={preferencesList} />
         </Animated.View>
-        <Animated.View style={tailwind.style('pt-6')}>
+        <Animated.View style={tailwind.style('pt-6 hidden')}>
           <SettingsList sectionTitle={i18n.t('SETTINGS.SUPPORT')} list={supportList} />
         </Animated.View>
         <Animated.View style={tailwind.style('pt-6 mx-4')}>

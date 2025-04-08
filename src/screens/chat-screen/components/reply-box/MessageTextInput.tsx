@@ -92,8 +92,13 @@ export const MessageTextInput = ({
     };
   });
 
-  const { setAddMenuOptionSheetState, textInputRef, setIsTextInputFocused, conversationId } =
-    useChatWindowContext();
+  const {
+    setAddMenuOptionSheetState,
+    textInputRef,
+    setIsTextInputFocused,
+    conversationId,
+    isTextInputFocused,
+  } = useChatWindowContext();
 
   const isPrivateMessage = useAppSelector(selectIsPrivateMessage);
   const quoteMessage = useAppSelector(selectQuoteMessage);
@@ -267,7 +272,10 @@ export const MessageTextInput = ({
       <Animated.View
         style={[
           // Pre calculated value to position the lock
-          tailwind.style('absolute right-13px]'),
+          tailwind.style(
+            'absolute',
+            isTextInputFocused && messageContent ? 'right-13px]' : 'right-4px]',
+          ),
           lockIconAnimatedPosition,
         ]}>
         <Pressable hitSlop={5} onPress={toggleReplyMode}>

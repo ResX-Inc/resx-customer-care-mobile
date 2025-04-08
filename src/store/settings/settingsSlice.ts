@@ -3,7 +3,7 @@ import { settingsActions } from './settingsActions';
 import * as RootNavigation from '@/utils/navigationUtils';
 import { NotificationSettings } from './settingsTypes';
 import { Theme } from '@/types/common/Theme';
-import Constants from 'expo-constants';
+import constructBaseUrl from '@/utils/constructBaseUrl';
 
 interface SettingsState {
   baseUrl: string;
@@ -21,8 +21,7 @@ interface SettingsState {
   pushToken: string;
 }
 
-const installationUrl: string =
-  process.env.EXPO_PUBLIC_CHATWOOT_BASE_URL ?? Constants.expoConfig?.extra?.eas?.chatWootBaseUrl;
+const installationUrl = constructBaseUrl();
 
 const usesSSL = installationUrl.startsWith('https://');
 const baseUrl = usesSSL

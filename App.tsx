@@ -7,6 +7,7 @@ import App from './src/app';
 // Ref: https://github.com/gorhom/react-native-bottom-sheet/issues/1983
 // https://github.com/dohooo/react-native-reanimated-carousel/issues/706
 import './reanimatedConfig';
+import constructBaseUrl from '@/utils/constructBaseUrl';
 // import './wdyr';
 
 const isStorybookEnabled = Constants.expoConfig?.extra?.eas?.storybookEnabled;
@@ -35,9 +36,7 @@ export default (() => {
   // if (!__DEV__) {
   //   return Sentry.wrap(App);
   // }
-  // if using dev build, set EXPO_PUBLIC_CHATWOOT_BASE_URL in your .env
-  process.env.EXPO_PUBLIC_CHATWOOT_BASE_URL =
-    process.env.EXPO_PUBLIC_CHATWOOT_BASE_URL ?? Constants.expoConfig?.extra?.eas?.chatWootBaseUrl;
+  process.env.EXPO_PUBLIC_CHATWOOT_BASE_URL = constructBaseUrl();
 
   console.log('Loading Development App');
   return App;

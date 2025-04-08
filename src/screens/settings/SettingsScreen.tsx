@@ -252,22 +252,22 @@ const SettingsScreen = () => {
   ];
 
   const supportList: GenericListType[] = [
-    {
-      hasChevron: true,
-      title: i18n.t('SETTINGS.READ_DOCS'),
-      icon: <SwitchIcon />,
-      subtitle: '',
-      subtitleType: 'light',
-      onPressListItem: openURL,
-    },
-    {
-      hasChevron: true,
-      title: i18n.t('SETTINGS.CHAT_WITH_US'),
-      icon: <ChatwootIcon />,
-      subtitle: '',
-      subtitleType: 'light',
-      onPressListItem: () => toggleWidget(true),
-    },
+    // URUGUAY hidden {
+    //   hasChevron: true,
+    //   title: i18n.t('SETTINGS.READ_DOCS'),
+    //   icon: <SwitchIcon />,
+    //   subtitle: '',
+    //   subtitleType: 'light',
+    //   onPressListItem: openURL,
+    // },
+    // {
+    //   hasChevron: true,
+    //   title: i18n.t('SETTINGS.CHAT_WITH_US'),
+    //   icon: <ChatwootIcon />,
+    //   subtitle: '',
+    //   subtitleType: 'light',
+    //   onPressListItem: () => toggleWidget(true),
+    // },
   ];
 
   return (

@@ -2,10 +2,10 @@ import { ExpoConfig, ConfigContext } from 'expo/config';
 import 'dotenv/config';
 
 export default ({ config }: ConfigContext): ExpoConfig => {
-  const { EXPO_PUBLIC_APP_ENV: APP_ENV } = process.env;
+  const { APP_ENV } = process.env;
 
   if (!APP_ENV) {
-    throw new Error('APP_ENV is not defined');
+    throw new Error('APP_ENV is not set');
   }
 
   let baseUrl: string | null = null;
@@ -22,7 +22,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
   }
 
   if (!baseUrl && APP_ENV !== 'development') {
-    throw new Error('CHATWOOT_BASE_URL is not defined');
+    throw new Error(Object.keys(process.env).toString());
   }
 
   const testBundleId = 'com.resx.cc.test';

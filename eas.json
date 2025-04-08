@@ -8,20 +8,19 @@
       "developmentClient": true,
       "distribution": "internal",
       "env": {
-        "EXPO_PUBLIC_APP_ENV": "development"
+        "APP_ENV": "development"
       }
     },
     "production": {
       "autoIncrement": true,
       "env": {
-        "EXPO_PUBLIC_APP_ENV": "production",
+        "APP_ENV": "production",
         "BUNDLE_IDENTIFIER": "com.resx.cc"
       }
     },
     "preview": {
-      "environment": "preview",
       "env": {
-        "EXPO_PUBLIC_APP_ENV": "preview"
+        "APP_ENV": "preview"
       },
       "ios": {
         "image": "latest",

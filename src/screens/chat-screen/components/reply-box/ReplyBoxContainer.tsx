@@ -64,7 +64,7 @@ import { ReplyEmailHead } from './ReplyEmailHead';
 import { getLastEmailInSelectedChat } from '@/store/conversation/conversationSelectors';
 import { selectAssignableParticipantsByInboxId } from '@/store/assignable-agent/assignableAgentSelectors';
 import { AudioRecorder } from '../audio-recorder/AudioRecorder';
-import { VoiceRecordButton } from './buttons/VoiceRecordButton';
+// URUGUAY hidden import { VoiceRecordButton } from './buttons/VoiceRecordButton';
 
 const SHEET_APPEAR_SPRING_CONFIG = {
   damping: 20,
@@ -360,10 +360,10 @@ const BottomSheetContent = () => {
     setSelectedCannedResponse(updatedContent);
   };
 
-  const onPressVoiceRecordIcon = () => {
-    setIsVoiceRecorderOpen(true);
-    setAddMenuOptionSheetState(false);
-  };
+  // URUGUAY hidden const onPressVoiceRecordIcon = () => {
+  //   setIsVoiceRecorderOpen(true);
+  //   setAddMenuOptionSheetState(false);
+  // };
 
   const shouldShowCannedResponses = messageContent?.charAt(0) === '/';
 
@@ -402,7 +402,9 @@ const BottomSheetContent = () => {
 
         {typingText && <TypingIndicator typingText={typingText} />}
 
-        {(isVoiceRecorderOpen && process.env.EXPO_PUBLIC_ENABLE_VOICE_MESSAGES === 'true') ? <AudioRecorder onRecordingComplete={onRecordingComplete} /> : null}
+        {isVoiceRecorderOpen && process.env.EXPO_PUBLIC_ENABLE_VOICE_MESSAGES === 'true' ? (
+          <AudioRecorder onRecordingComplete={onRecordingComplete} />
+        ) : null}
         {!isVoiceRecorderOpen ? (
           <Animated.View style={tailwind.style('flex flex-row px-1 items-end z-20 relative')}>
             {attachmentsLength === 0 && shouldShowFileUpload && (
@@ -421,9 +423,9 @@ const BottomSheetContent = () => {
             {(messageContent.length > 0 || attachmentsLength > 0) && (
               <SendMessageButton onPress={() => confirmOnSendReply(null)} />
             )}
-            {messageContent.length === 0 && attachmentsLength === 0 && shouldShowFileUpload ? (
+            {/* URUGUAY hidden {messageContent.length === 0 && attachmentsLength === 0 && shouldShowFileUpload ? (
               <VoiceRecordButton onPress={onPressVoiceRecordIcon} />
-            ) : null}
+            ) : null} */}
           </Animated.View>
         ) : null}
       </Animated.View>

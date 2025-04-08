@@ -1,26 +1,26 @@
 import { ExpoConfig, ConfigContext } from 'expo/config';
 import 'dotenv/config';
 
-const constructBaseUrl = () => {
-  if (process.env.NODE_ENV === 'development') {
-    return process.env.EXPO_PUBLIC_CHATWOOT_BASE_URL;
-  }
-  switch (process.env.APP_ENV) {
-    case 'production':
-      return process.env.CHATWOOT_BASE_URL_PRODUCTION;
-    case 'preview':
-      return process.env.CHATWOOT_BASE_URL_STAGING;
-    default:
-      return null;
-  }
-};
-
 export default ({ config }: ConfigContext): ExpoConfig => {
   if (!process.env.APP_ENV) {
     throw new Error('APP_ENV is not defined');
   }
 
-  const baseUrl = constructBaseUrl();
+  let baseUrl: string | null = null;
+
+  switch (process.env.APP_ENV) {
+    case 'production':
+      baseUrl = process.env.CHATWOOT_BASE_URL_PRODUCTION;
+      break;
+    case 'preview':
+      baseUrl = process.env.CHATWOOT_BASE_URL_STAGING;
+      break;
+    case 'development':
+      baseUrl = process.env.EXPO_PUBLIC_CHATWOOT_BASE_URL;
+      break;
+    default:
+      baseUrl = null;
+  }
 
   if (!baseUrl) {
     throw new Error('CHATWOOT_BASE_URL is not defined');
@@ -97,6 +97,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       eas: {
         projectId: process.env.PROJECT_ID,
         storybookEnabled: process.env.EXPO_STORYBOOK_ENABLED,
+        chatWootBaseUrl: baseUrl,
       },
     },
     owner: 'resx-organization',

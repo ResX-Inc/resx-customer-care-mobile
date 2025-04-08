@@ -19,12 +19,16 @@ interface SettingsState {
   version: string;
   pushToken: string;
 }
-
-const baseUrl: string = process.env.EXPO_PUBLIC_CHATWOOT_BASE_URL ?? 'https://app.chatwoot.com';
+const installationUrl: string =
+  process.env.EXPO_PUBLIC_CHATWOOT_BASE_URL ?? 'https://app.chatwoot.com';
+const usesSSL = installationUrl.startsWith('https://');
+const baseUrl = usesSSL
+  ? installationUrl.replace('https://', '')
+  : installationUrl.replace('http://', '');
 
 const initialState: SettingsState = {
-  baseUrl: baseUrl.replace('https://', ''),
-  installationUrl: baseUrl,
+  baseUrl,
+  installationUrl: `${installationUrl}/`,
   uiFlags: {
     isSettingUrl: false,
     isUpdating: false,
@@ -40,7 +44,7 @@ const initialState: SettingsState = {
     selected_push_flags: [],
     user_id: 0,
   },
-  webSocketUrl: `${baseUrl.replace('https', 'wss').replace('http', 'ws')}/cable`,
+  webSocketUrl: `${usesSSL ? 'wss' : 'ws'}://${baseUrl}/cable`,
   theme: 'system',
   version: '',
   pushToken: '',

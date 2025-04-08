@@ -36,19 +36,19 @@ const processContactAttributes = (
 export const ConversationMetaInformation = ({ conversation }: { conversation: Conversation }) => {
   const additionalAttributes = conversation.additionalAttributes;
   const initiatedAt = additionalAttributes.initiatedAt?.timestamp;
-  const referer = additionalAttributes.referer;
+  // URUGUAY hidden const referer = additionalAttributes.referer;
   const browser = additionalAttributes.browser;
   const sender = conversation.meta.sender;
 
-  const browserName = browser?.browserName
-    ? `${browser?.browserName} ${browser?.browserVersion}`
-    : '';
+  // URUGUAY hidden const browserName = browser?.browserName
+  //   ? `${browser?.browserName} ${browser?.browserVersion}`
+  //   : '';
   const platformName = browser?.platformName
     ? `${browser?.platformName} ${browser?.platformVersion}`
     : '';
 
   const conversationCustomAttributes = useAppSelector(getConversationCustomAttributes);
-  const { additionalAttributes: { createdAtIp = '' } = {} } = sender;
+  // URUGUAY hidden const { additionalAttributes: { createdAtIp = '' } = {} } = sender;
 
   const usedConversationCustomAttributes = processContactAttributes(
     conversationCustomAttributes,
@@ -69,30 +69,30 @@ export const ConversationMetaInformation = ({ conversation }: { conversation: Co
       subtitle: initiatedAt,
       type: 'date',
     },
-    {
-      title: i18n.t('CONVERSATION_DETAILS.INITIATED_FROM'),
-      subtitleType: 'light',
-      subtitle: referer,
-      type: 'link',
-    },
-    {
-      title: i18n.t('CONVERSATION_DETAILS.BROWSER'),
-      subtitleType: 'light',
-      subtitle: browserName,
-      type: 'text',
-    },
+    // URUGUAY hidden {
+    //   title: i18n.t('CONVERSATION_DETAILS.INITIATED_FROM'),
+    //   subtitleType: 'light',
+    //   subtitle: referer,
+    //   type: 'link',
+    // },
+    // {
+    //   title: i18n.t('CONVERSATION_DETAILS.BROWSER'),
+    //   subtitleType: 'light',
+    //   subtitle: browserName,
+    //   type: 'text',
+    // },
     {
       title: i18n.t('CONVERSATION_DETAILS.OPERATING_SYSTEM'),
       subtitleType: 'light',
       subtitle: platformName,
       type: 'text',
     },
-    {
-      title: i18n.t('CONVERSATION_DETAILS.IP_ADDRESS'),
-      subtitleType: 'light',
-      subtitle: createdAtIp,
-      type: 'text',
-    },
+    // URUGUAY hidden {
+    //   title: i18n.t('CONVERSATION_DETAILS.IP_ADDRESS'),
+    //   subtitleType: 'light',
+    //   subtitle: createdAtIp,
+    //   type: 'text',
+    // },
   ];
 
   const processedAttributes = usedConversationCustomAttributes.map(attribute => ({

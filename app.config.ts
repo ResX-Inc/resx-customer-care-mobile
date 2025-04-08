@@ -2,32 +2,37 @@ import { ExpoConfig, ConfigContext } from 'expo/config';
 import 'dotenv/config';
 
 export default ({ config }: ConfigContext): ExpoConfig => {
-  if (!process.env.APP_ENV) {
+  const { EXPO_PUBLIC_APP_ENV: APP_ENV } = process.env;
+
+  if (!APP_ENV) {
     throw new Error('APP_ENV is not defined');
   }
 
   let baseUrl: string | null = null;
 
-  switch (process.env.APP_ENV) {
+  switch (APP_ENV) {
     case 'production':
       baseUrl = process.env.CHATWOOT_BASE_URL_PRODUCTION;
       break;
     case 'preview':
       baseUrl = process.env.CHATWOOT_BASE_URL_STAGING;
       break;
-    case 'development':
-      baseUrl = process.env.EXPO_PUBLIC_CHATWOOT_BASE_URL;
-      break;
     default:
       baseUrl = null;
   }
 
-  if (!baseUrl) {
+  if (!baseUrl && APP_ENV !== 'development') {
     throw new Error('CHATWOOT_BASE_URL is not defined');
   }
 
+  const testBundleId = 'com.resx.cc.test';
+  const bundleIdentifier = process.env.BUNDLE_IDENTIFIER || testBundleId;
+  const installationUrl =
+    baseUrl?.replace('https://', '')?.replace('http://', '') ?? 'app.chatwoot.com';
+  const appName = 'ResX Customer Care';
+
   return {
-    name: 'ResX Customer Care',
+    name: APP_ENV === 'production' ? appName : `${appName} Test`,
     slug: process.env.EXPO_PUBLIC_APP_SLUG || 'chatwoot-mobile',
     version: '4.0.16',
     orientation: 'portrait',
@@ -41,9 +46,8 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       enableFullScreenImage_legacy: true,
     },
     ios: {
-      buildNumber: '2',
       supportsTablet: true,
-      bundleIdentifier: 'com.resx.cc',
+      bundleIdentifier,
       infoPlist: {
         NSCameraUsageDescription:
           'This app requires access to the camera to upload images and videos.',
@@ -56,18 +60,18 @@ export default ({ config }: ConfigContext): ExpoConfig => {
         ITSAppUsesNonExemptEncryption: 'false',
       },
       // Please use the relative path to the google-services.json file
-      googleServicesFile: process.env.IOS_GOOGLE_SERVICES_FILE ?? './GoogleService-Info.plist',
+      googleServicesFile: process.env.IOS_GOOGLE_SERVICES_FILE,
       entitlements: {
         'aps-environment': 'production',
       },
-      associatedDomains: ['applinks:app.chatwoot.com'],
+      associatedDomains: [`applinks:${installationUrl}`],
     },
     android: {
       adaptiveIcon: {
         foregroundImage: './assets/adaptive-icon.png',
         backgroundColor: '#ffffff',
       },
-      package: 'com.resx.cc',
+      package: bundleIdentifier,
       permissions: [
         'android.permission.CAMERA',
         'android.permission.READ_EXTERNAL_STORAGE',
@@ -76,7 +80,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
         'android.permission.READ_MEDIA_IMAGES',
       ],
       // Please use the relative path to the google-services.json file
-      googleServicesFile: process.env.ANDROID_GOOGLE_SERVICES_FILE ?? './google-services.json',
+      googleServicesFile: process.env.ANDROID_GOOGLE_SERVICES_FILE,
       intentFilters: [
         {
           action: 'VIEW',
@@ -84,7 +88,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
           data: [
             {
               scheme: 'https',
-              host: 'app.chatwoot.com',
+              host: installationUrl,
               pathPrefix: '/app/accounts/',
               pathPattern: '/*/conversations/*',
             },

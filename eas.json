@@ -8,39 +8,45 @@
       "developmentClient": true,
       "distribution": "internal",
       "env": {
-        "APP_ENV": "development"
+        "EXPO_PUBLIC_APP_ENV": "development"
       }
     },
     "production": {
       "autoIncrement": true,
       "env": {
-        "APP_ENV": "production"
+        "EXPO_PUBLIC_APP_ENV": "production",
+        "BUNDLE_IDENTIFIER": "com.resx.cc"
       }
     },
     "preview": {
       "environment": "preview",
+      "env": {
+        "EXPO_PUBLIC_APP_ENV": "preview"
+      },
       "ios": {
         "image": "latest",
-        "resourceClass": "m-medium",
-        "env": {
-          "PLATFORM": "ios",
-          "APP_ENV": "preview"
-        }
+        "resourceClass": "m-medium"
       },
       "autoIncrement": true
     }
   },
   "submit": {
+    "apple": {
+      "ios": {
+        "appleId": "",
+        "appleTeamId": ""
+      }
+    },
     "production": {
-      "android": {
-        "track": "internal"
+      "extends": "apple",
+      "ios": {
+        "ascAppId": ""
       }
     },
     "preview": {
+      "extends": "apple",
       "ios": {
-        "appleId": "",
-        "ascAppId": "",
-        "appleTeamId": ""
+        "ascAppId": ""
       }
     }
   }

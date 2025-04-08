@@ -11,10 +11,6 @@ import './reanimatedConfig';
 
 const isStorybookEnabled = Constants.expoConfig?.extra?.eas?.storybookEnabled;
 
-// if using dev build, set EXPO_PUBLIC_CHATWOOT_BASE_URL in your .env
-process.env.EXPO_PUBLIC_CHATWOOT_BASE_URL =
-  process.env.EXPO_PUBLIC_CHATWOOT_BASE_URL ?? Constants.expoConfig?.extra?.eas?.chatWootBaseUrl;
-
 if (!__DEV__) {
   // TODO Sentry broken with combination of React Native < 0.77 and Sentry < 6.10
   // Sentry.init({
@@ -39,6 +35,9 @@ export default (() => {
   // if (!__DEV__) {
   //   return Sentry.wrap(App);
   // }
+  // if using dev build, set EXPO_PUBLIC_CHATWOOT_BASE_URL in your .env
+  process.env.EXPO_PUBLIC_CHATWOOT_BASE_URL =
+    process.env.EXPO_PUBLIC_CHATWOOT_BASE_URL ?? Constants.expoConfig?.extra?.eas?.chatWootBaseUrl;
 
   console.log('Loading Development App');
   return App;

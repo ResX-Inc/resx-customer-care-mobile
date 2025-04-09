@@ -22,7 +22,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
   }
 
   if (!baseUrl && APP_ENV !== 'development') {
-    throw new Error(Object.keys(process.env).toString());
+    throw new Error('CHATWOOT_BASE_URL is not set');
   }
 
   const testBundleId = 'com.resx.cc.test';

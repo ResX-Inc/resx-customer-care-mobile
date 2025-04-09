@@ -21,6 +21,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       baseUrl = null;
   }
 
+  // if app is running in development, base url may be null at this stage; you need to set EXPO_PUBLIC_CHATWOOT_BASE_URL in your .env
   if (!baseUrl && APP_ENV !== 'development') {
     throw new Error('CHATWOOT_BASE_URL is not set');
   }

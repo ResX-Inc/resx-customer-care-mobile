@@ -111,7 +111,7 @@ const LoginScreen = () => {
           contentContainerStyle={tailwind.style('px-6 pt-24')}>
           <Image
             source={require('@/assets/images/logo.png')}
-            style={tailwind.style('w-10 h-10')}
+            style={tailwind.style('w-20 h-20')}
             resizeMode="contain"
           />
           <View style={tailwind.style('pt-6 gap-4')}>

@@ -18,19 +18,17 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       baseUrl = process.env.CHATWOOT_BASE_URL_STAGING;
       break;
     default:
-      baseUrl = null;
+      baseUrl = process.env.EXPO_PUBLIC_CHATWOOT_BASE_URL;
   }
 
-  // if app is running in development, base url may be null at this stage; you need to set EXPO_PUBLIC_CHATWOOT_BASE_URL in your .env
-  if (!baseUrl && APP_ENV !== 'development') {
+  if (!baseUrl) {
     throw new Error('CHATWOOT_BASE_URL is not set');
   }
 
-  const testBundleId = 'com.resx.cc.test';
-  const bundleIdentifier = process.env.BUNDLE_IDENTIFIER || testBundleId;
   const installationUrl =
     baseUrl?.replace('https://', '')?.replace('http://', '') ?? 'app.chatwoot.com';
-  const appName = 'ResX Customer Care';
+
+  const appName = 'ResX CC Portal';
 
   return {
     name: APP_ENV === 'production' ? appName : `${appName} Test`,
@@ -48,7 +46,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     },
     ios: {
       supportsTablet: true,
-      bundleIdentifier,
+      bundleIdentifier: BUNDLE_IDENTIFIER,
       infoPlist: {
         NSCameraUsageDescription:
           'This app requires access to the camera to upload images and videos.',
@@ -72,7 +70,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
         foregroundImage: './assets/adaptive-icon.png',
         backgroundColor: '#ffffff',
       },
-      package: bundleIdentifier,
+      package: BUNDLE_IDENTIFIER,
       permissions: [
         'android.permission.CAMERA',
         'android.permission.READ_EXTERNAL_STORAGE',

@@ -44,20 +44,12 @@
     }
   },
   "submit": {
-    "apple": {
-      "ios": {
-        "appleId": "",
-        "appleTeamId": ""
-      }
-    },
     "production": {
-      "extends": "apple",
       "ios": {
         "ascAppId": ""
       }
     },
     "preview": {
-      "extends": "apple",
       "ios": {
         "ascAppId": ""
       }

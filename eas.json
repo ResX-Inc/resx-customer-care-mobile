@@ -4,7 +4,13 @@
     "appVersionSource": "remote"
   },
   "build": {
+    "test": {
+      "env": {
+        "BUNDLE_IDENTIFIER": "com.resx.cc.test"
+      }
+    },
     "development": {
+      "extends": "test",
       "developmentClient": true,
       "distribution": "internal",
       "env": {
@@ -16,10 +22,16 @@
       "autoIncrement": true,
       "env": {
         "APP_ENV": "production",
-        "BUNDLE_IDENTIFIER": "com.resx.cc"
+        "BUNDLE_IDENTIFIER": "com.resx.cc",
+        "APP_ICON": "icon"
+      },
+      "ios": {
+        "image": "latest",
+        "resourceClass": "m-medium"
       }
     },
     "preview": {
+      "extends": "test",
       "environment": "preview",
       "env": {
         "APP_ENV": "preview"

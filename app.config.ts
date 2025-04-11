@@ -2,7 +2,7 @@ import { ExpoConfig, ConfigContext } from 'expo/config';
 import 'dotenv/config';
 
 export default ({ config }: ConfigContext): ExpoConfig => {
-  const { APP_ENV } = process.env;
+  const { APP_ENV, BUNDLE_IDENTIFIER, APP_ICON } = process.env;
 
   if (!APP_ENV) {
     throw new Error('APP_ENV is not set');
@@ -37,7 +37,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     slug: process.env.EXPO_PUBLIC_APP_SLUG || 'chatwoot-mobile',
     version: '4.0.16',
     orientation: 'portrait',
-    icon: './assets/icon.png',
+    icon: `./assets/${APP_ICON ?? 'icon-test'}.png`,
     userInterfaceStyle: 'light',
     newArchEnabled: false,
     splash: {

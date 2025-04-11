@@ -10,5 +10,6 @@ declare namespace NodeJS {
     IOS_GOOGLE_SERVICES_FILE: string;
     ANDROID_GOOGLE_SERVICES_FILE: string;
     BUNDLE_IDENTIFIER: string;
+    APP_ICON?: string;
   }
 }
